@@ -13,6 +13,7 @@
     <div id="lienzo">
       <img id="loadingicon" src="images/loading.gif" />
     </div>
+    <div id="wifi_table"></div>
     <script>
 
       var default_attributes = {
@@ -22,43 +23,44 @@
         };
       
 
-      var comunas_data = {'Padre_Hurtado' :'Padre Hurtado',
-        'Maipú' :'Maipú',
-        'Cerrillos' :'Cerrillos',
-        'Estación_Central' :'Estación Central',
-        'Pudahuel' :'Pudahuel',
-        'Lo_Prado' :'Lo Prado',
-        'Cerro_Navia' :'Cerro Navia',
-        'Santiago' :'Santiago',
-        'Renca' :'Renca',
-        'Quinta_Normal' :'Quinta Normal',
-        'Recoleta' :'Recoleta',
-        'Independencia' :'Independencia',
-        'Quilicura' :'Quilicura',
-        'Conchalí' :'Conchalí',
-        'San_Bernardo' :'San Bernardo',
-        'El_Bosque' :'El Bosque',
-        'La_Cisterna' :'La Cisterna',
-        'Lo_Espejo' :'Lo Espejo',
-        'Pedro_Aguirre_Cerda' :'Pedro Aguirre Cerda',
-        'San_Miguel' :'San Miguel',
-        'San_Ramón' :'San Ramón',
-        'La_Granja' :'La Granja',
-        'San_Joaquín' :'San Joaquín',
-        'La_Pintana' :'La Pintana',
-        'Providencia' :'Providencia',
-        'Ñuñoa' :'Ñuñoa',
-        'La_Reina' :'La Reina',
-        'Macul' :'Macul',
-        'Puente_Alto' :'Puente Alto',
-        'Pirque' :'Pirque',
-        'San_José_de_Maipo' :'San José de Maipo',
-        'La_Florida' :'La Florida',
-        'Peñalolén' :'Peñalolén',
-        'Las_Condes' :'Las Condes',
-        'Vitacura' :'Vitacura',
-        'Lo_Barnechea' :'Lo Barnechea',
-        'Huechuraba' :'Huechuraba'
+    var comunas_data = {
+        'Padre_Hurtado' :{"name":'Padre Hurtado' , "wifi":[], "mobile":[]},
+        'Maipú' :{"name":'Maipú' , "wifi":[], "mobile":[]},
+        'Cerrillos' :{"name":'Cerrillos' , "wifi":[], "mobile":[]},
+        'Estación_Central' :{"name":'Estación Central' , "wifi":[], "mobile":[]},
+        'Pudahuel' :{"name":'Pudahuel' , "wifi":[], "mobile":[]},
+        'Lo_Prado' :{"name":'Lo Prado' , "wifi":[], "mobile":[]},
+        'Cerro_Navia' :{"name":'Cerro Navia' , "wifi":[], "mobile":[]},
+        'Santiago' :{"name":'Santiago' , "wifi":[], "mobile":[]},
+        'Renca' :{"name":'Renca' , "wifi":[], "mobile":[]},
+        'Quinta_Normal' :{"name":'Quinta Normal' , "wifi":[], "mobile":[]},
+        'Recoleta' :{"name":'Recoleta' , "wifi":[], "mobile":[]},
+        'Independencia' :{"name":'Independencia' , "wifi":[], "mobile":[]},
+        'Quilicura' :{"name":'Quilicura' , "wifi":[], "mobile":[]},
+        'Conchalí' :{"name":'Conchalí' , "wifi":[], "mobile":[]},
+        'San_Bernardo' :{"name":'San Bernardo' , "wifi":[], "mobile":[]},
+        'El_Bosque' :{"name":'El Bosque' , "wifi":[], "mobile":[]},
+        'La_Cisterna' :{"name":'La Cisterna' , "wifi":[], "mobile":[]},
+        'Lo_Espejo' :{"name":'Lo Espejo' , "wifi":[], "mobile":[]},
+        'Pedro_Aguirre_Cerda' :{"name":'Pedro Aguirre Cerda' , "wifi":[], "mobile":[]},
+        'San_Miguel' :{"name":'San Miguel' , "wifi":[], "mobile":[]},
+        'San_Ramón' :{"name":'San Ramón' , "wifi":[], "mobile":[]},
+        'La_Granja' :{"name":'La Granja' , "wifi":[], "mobile":[]},
+        'San_Joaquín' :{"name":'San Joaquín' , "wifi":[], "mobile":[]},
+        'La_Pintana' :{"name":'La Pintana' , "wifi":[], "mobile":[]},
+        'Providencia' :{"name":'Providencia' , "wifi":[], "mobile":[]},
+        'Ñuñoa' :{"name":'Ñuñoa' , "wifi":[], "mobile":[]},
+        'La_Reina' :{"name":'La Reina' , "wifi":[], "mobile":[]},
+        'Macul' :{"name":'Macul' , "wifi":[], "mobile":[]},
+        'Puente_Alto' :{"name":'Puente Alto' , "wifi":[], "mobile":[]},
+        'Pirque' :{"name":'Pirque' , "wifi":[], "mobile":[]},
+        'San_José_de_Maipo' :{"name":'San José de Maipo' , "wifi":[], "mobile":[]},
+        'La_Florida' :{"name":'La Florida' , "wifi":[], "mobile":[]},
+        'Peñalolén' :{"name":'Peñalolén' , "wifi":[], "mobile":[]},
+        'Las_Condes' :{"name":'Las Condes' , "wifi":[], "mobile":[]},
+        'Vitacura' :{"name":'Vitacura' , "wifi":[], "mobile":[]},
+        'Lo_Barnechea' :{"name":'Lo Barnechea' , "wifi":[], "mobile":[]},
+        'Huechuraba' :{"name":'Huechuraba' , "wifi":[], "mobile":[]}
       }
 
     var $conumatxt = $('#comunatxt');
@@ -84,8 +86,34 @@
         comunas.hover(function() {
           this.animate({ fill: '#00bbff' });
           var text = "Comuna: ";
-          if (typeof(comunas_data[pid])!='undefined')
-            text+=comunas_data[pid];
+          if (typeof(comunas_data[pid])!='undefined'){
+            text+= comunas_data[pid].name
+            if(comunas_data[pid].wifi.length>0){
+              var table_data = '<table class="table table-bordered table-striped">';
+
+
+              table_data += '<tr>';
+
+              table_data += '<th>Comuna</th>'
+              table_data += '<th>ISP</th>'
+              table_data += '<th>Count</th>'
+              table_data += '<th>AVG RTT</th>'
+              table_data += '<th>AVG JITTER</th>'
+
+              table_data += '</tr>';
+              table_data += '<tr>';
+              for (val in comunas_data[pid].wifi){
+                table_data += '<tr>';
+                 value = comunas_data[pid].wifi[val]
+                for (col in value){
+                  table_data += '<td>'+value[col]+'</td>';
+                }
+                table_data += '</tr>';
+              } 
+              table_data += '</table>';
+              text+= table_data
+            }
+          }
           else
             text+="Sin nombre";
           //text+="("+$(this).attr('id')+")";
@@ -101,6 +129,57 @@
       $('#loadingicon').hide();
     }
       });
+
+
+
+      $.ajax({
+        url:"res/ResultsQOSWiFi.csv",
+        dataType:"text",
+        encType:'utf-8',
+        success:function(data)
+      {
+          wifiQOS = []
+          wifi_data = data.split('\r\n');
+          // var table_data = '<table class="table table-bordered table-striped">';
+          // table_data += '<tr>';
+          var headers = wifi_data[0].split(", ")
+          // for(col in headers){
+            // console.log(headers[col]);
+            // table_data += '<th>'+headers[col]+'</th>';
+          // }
+          // table_data += '</tr>';
+        for(var count = 1; count<wifi_data.length; count++){
+          //cols = wifi_data[count]
+          // table_data += '<tr>';
+          row= wifi_data[count].split(", ")
+          wifiQOSrow ={}
+          for(col in row){
+            wifiQOSrow[headers[col]]=row[col]
+            // table_data += '<td>'+row[col]+'</td>';
+          }
+          //console.log(row[0])
+          try{
+            comunas_data[row[0].replaceAll(' ', '_')]["wifi"].push(wifiQOSrow);
+          }catch(error){
+            console.log(row[0]);
+          }
+          wifiQOS.push(wifiQOSrow);
+          // table_data += '</tr>';
+        }
+
+        // table_data += '</table>';
+        // $('#wifi_table').html(table_data);
+        console.log(wifiQOS)  
+
+        console.log(comunas_data)
+
+
+      }
+    });
+
+
+
+
     </script>
 
 
