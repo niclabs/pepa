@@ -143,6 +143,7 @@
         success:function(data)
       {
           wifiQOS = []
+          console.log(data);
           wifi_data = data.split('\r\n');
           // var table_data = '<table class="table table-bordered table-striped">';
           // table_data += '<tr>';
@@ -155,6 +156,7 @@
         for(var count = 1; count<wifi_data.length; count++){
           //cols = wifi_data[count]
           // table_data += '<tr>';
+          console.log(wifi_data[count]);
           row= wifi_data[count].split(", ")
           wifiQOSrow ={}
           for(col in row){
