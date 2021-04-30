@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Ejemplo Raphaeljs</title>
+    <script type="text/javascript" src="js/raphael.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Ejemplo Raphaeljs</h1>
+    <hr />
+    <div id="comunatxt">Selecciona una comuna</div>
+    <div id="lienzo">
+      <img id="loadingicon" src="images/loading.gif" />
+    </div>
+    <script>
+
+      var default_attributes = {
+            fill: '#abcabc',
+            stroke: '#000000',
+            'stroke-width': 4,
+        };
+      var rjs = Raphael('lienzo', 600, 400);
+
+      var comunas_data = {'Padre_Hurtado  ' :'Padre Hurtado',
+        'Maipú  ' :'Maipú',
+        'Cerrillos  ' :'Cerrillos',
+        'Estación_Central  ' :'Estación Central',
+        'Pudahuel  ' :'Pudahuel',
+        'Lo_Prado  ' :'Lo Prado',
+        'Cerro_Navia  ' :'Cerro Navia',
+        'Santiago  ' :'Santiago',
+        'Renca  ' :'Renca',
+        'Quinta_Normal  ' :'Quinta Normal',
+        'Recoleta  ' :'Recoleta',
+        'Independencia  ' :'Independencia',
+        'Quilicura  ' :'Quilicura',
+        'Conchalí  ' :'Conchalí',
+        'San_Bernardo  ' :'San Bernardo',
+        'El_Bosque  ' :'El Bosque',
+        'La_Cisterna  ' :'La Cisterna',
+        'Lo_Espejo  ' :'Lo Espejo',
+        'Pedro_Aguirre_Cerda  ' :'Pedro Aguirre Cerda',
+        'San_Miguel  ' :'San Miguel',
+        'San_Ramón  ' :'San Ramón',
+        'La_Granja  ' :'La Granja',
+        'San_Joaquín  ' :'San Joaquín',
+        'La_Pintana  ' :'La Pintana',
+        'Providencia  ' :'Providencia',
+        'Ñuñoa  ' :'Ñuñoa',
+        'La_Reina  ' :'La Reina',
+        'Macul  ' :'Macul',
+        'Puente_Alto  ' :'Puente Alto',
+        'Pirque  ' :'Pirque',
+        'San_José_de_Maipo  ' :'San José de Maipo',
+        'La_Florida  ' :'La Florida',
+        'Peñalolén  ' :'Peñalolén',
+        'Las_Condes  ' :'Las Condes',
+        'Vitacura  ' :'Vitacura',
+        'Lo_Barnechea  ' :'Lo Barnechea',
+        'Huechuraba  ' :'Huechuraba'
+      }
+
+    var $conumatxt = $('#comunatxt');
+
+      $.ajax({
+        url: 'images/Comunas_de_Santiago_(plain).svg',
+    type: 'GET',
+    dataType: 'xml',
+    success: function(xml) {
+      var rjs = Raphael('lienzo', 700, 400);
+      var corr="";
+      $(xml).find('svg > g > g > path').each(function() {
+        var path = $(this).attr('d');
+    var pid = $(this).attr('id');
+        var comunas = rjs.path(path);
+
+        comunas.attr(default_attributes);
+        comunas.hover(function() {
+          this.animate({ fill: '#00bbff' });
+          var text = "Comuna: ";
+          if (typeof(comunas_data[pid])!='undefined')
+            text+=comunas_data[pid];
+          else
+            text+="Sin nombre";
+          text+="("+$(this).attr('id')+")";
+
+          $conumatxt.html(text);
+        }, function() {
+          this.animate({ fill: default_attributes.fill });
+          $conumatxt.html("Selecciona una comuna");
+        }). click(function() {
+          alert("Click sobre una comuna. ID = "+$(this).attr('id'));
+        });
+          });
+      $('#loadingicon').hide();
+    }
+      });
+    </script>
+
+
+    </script>
+  </body>
+</html>
