@@ -148,6 +148,11 @@
           // var table_data = '<table class="table table-bordered table-striped">';
           // table_data += '<tr>';
           var headers = wifi_data[0].split(", ")
+          try{
+            console.log(headers[7])
+          }catch(error){
+            console.log(error, headers)
+          }
           // for(col in headers){
             // console.log(headers[col]);
             // table_data += '<th>'+headers[col]+'</th>';
