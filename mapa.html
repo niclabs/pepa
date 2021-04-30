@@ -10,6 +10,7 @@
     <h1>Ejemplo Raphaeljs</h1>
     <hr />
     <div id="comunatxt">Selecciona una comuna</div>
+    <div id="table_data"></div>
     <div id="lienzo">
       <img id="loadingicon" src="images/loading.gif" />
     </div>
@@ -64,6 +65,7 @@
       }
 
     var $conumatxt = $('#comunatxt');
+    var $table_data = $('#table_data');
 
       $.ajax({
         url: 'images/Comunas_de_Santiago_(plain).svg',
@@ -93,13 +95,11 @@
 
 
               table_data += '<tr>';
-
               table_data += '<th>Comuna</th>'
               table_data += '<th>ISP</th>'
               table_data += '<th>Count</th>'
               table_data += '<th>AVG RTT</th>'
               table_data += '<th>AVG JITTER</th>'
-
               table_data += '</tr>';
               table_data += '<tr>';
               for (val in comunas_data[pid].wifi){
@@ -111,7 +111,8 @@
                 table_data += '</tr>';
               } 
               table_data += '</table>';
-              text+= table_data
+              $table_data.html(table_data);
+              //text+= table_data
             }
           }
           else
