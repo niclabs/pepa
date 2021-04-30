@@ -10,10 +10,11 @@
     <h1>Ejemplo Raphaeljs</h1>
     <hr />
     <div id="comunatxt">Selecciona una comuna</div>
-    <div id="table_data"></div>
+    
     <div id="lienzo">
       <img id="loadingicon" src="images/loading.gif" />
     </div>
+    <div id="table_data"></div>
     <div id="wifi_table"></div>
     <script>
 
@@ -72,7 +73,7 @@
     type: 'GET',
     dataType: 'xml',
     success: function(xml) {
-      var rjs = Raphael("lienzo", 1700, 800);
+      var rjs = Raphael("lienzo", 400, 400);
       rjs.setViewBox(-60, 0, 612, 792, false);
       var corr="";
        //$(xml).find('svg')
@@ -123,6 +124,7 @@
         }, function() {
           this.animate({ fill: default_attributes.fill });
           $conumatxt.html("Selecciona una comuna");
+          $table_data.html("");
         }). click(function() {
           alert("Click sobre una comuna. ID = "+$(this).attr('id'));
         });
