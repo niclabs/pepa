@@ -1,0 +1,134 @@
+<!DOCTYPE HTML>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <title>QoS por comunas de la Región Metropolitana</title>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/d3.js"></script>
+    <style>
+      svg {
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding-bottom: 100%;
+        vertical-align: top;
+        overflow: visible;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tabs_selector"></div>
+    <div id="tab_content">
+      <div id="company_selector">
+        <div id="company_description"><h3>Compañías</h3></div>
+        <div id="companies">
+          <button id="all" onclick="allIsp()">Mostrar todas</button>
+          <button id="entel" onclick="entel()">Entel</button>
+        </div>
+      </div>
+      <div id="description"><p>Mostrando intensidad de señal por comuna en Región Metropolitana</p></div>
+      <div id="chart">
+        <div id="map"></div>
+        <div id="map_scale"></div>
+      </div>
+      <div id="table"></div>
+    </div>
+    <script>
+      // Read config
+      let CONFIG = {};
+      $.getJSON('./config.json', function (data){
+        for(let datum of Object.entries(data)){
+          CONFIG[datum[0]] = datum[1];
+        }
+      });
+      let isp = "";
+      let data_wifi = d3.csv("./res/ResultsQOSWiFi.csv").then(data =>{
+        return data;
+      });
+      let data_mobile = d3.csv("./res/ResultsQOSMobile.csv").then(data =>{
+        return data;
+      });
+      function allIsp(){
+        isp = "all";
+        console.debug("ISP selected " + isp);
+        generateMap();
+      }
+      function entel(){
+        isp = "ENTEL CHILE S.A.";
+        console.debug("ISP selected " + isp);
+        generateMap();
+      }
+
+      function getSVG(){
+         return  d3.select("#map")
+                 .append("svg")
+                 .style("width", CONFIG.width)
+                 .style("height", CONFIG.height)
+                 .attr("id", "svg_map");
+      }
+
+      function selectIsp(isp, dataset){
+        let temp = {};
+        let comunas = [];
+        if(isp==="all"){
+          dataset.forEach(function(d){
+              if(comunas.includes(d.comuna)){
+                temp[d.comuna]["rtt"] += +d.avg_rtt * +d.count;
+                temp[d.comuna]["jitter"] += +d.avg_jitter * +d.count;
+                temp[d.comuna]["count"] += +d.count;
+              } else {
+                comunas.push(d.comuna);
+                temp[d.comuna] = {
+                  "rtt": +d.avg_rtt * +d.count,
+                  "jitter": +d.avg_jitter * +d.count,
+                  "count": +d.count,
+                }
+              }
+            })
+          for(let key in temp){
+            temp[key]["rtt"] /= temp[key]["count"];
+            temp[key]["jitter"] /= temp[key]["count"];
+          }
+        }
+        let data = [];
+        for(let key in temp){
+          data.push({
+            "comuna": key,
+            "rtt": temp[key]["rtt"],
+            "jitter": temp[key]["jitter"],
+          })
+        }
+        return data;
+      }
+
+      function generateMap(){
+        d3.select("#svg_map").remove();
+        let svg = getSVG();
+        d3.xml("./images/Comunas_de_Santiago_(plain).svg")
+              .then(xml => {
+                let svgMap = xml.documentElement;
+                svg.node().appendChild(svgMap);
+                d3.csv("./res/ResultsQOSWiFi.csv").then(data =>{
+                  data = selectIsp(isp, data);
+                  console.debug(data);
+                  const color = d3.scaleQuantile()
+                          .domain([
+                                  d3.min(data, function(d){
+                                    return +d.rtt;
+                                  }),
+                                  d3.max(data, function(d){
+                                    return +d.rtt;
+                                  })
+                                  ])
+                          .range(CONFIG.color_scale);
+                  data.forEach(function(d){
+                    d3.select(document.getElementById(d.comuna))
+                            .style("fill", color(+d.rtt));
+                  })
+                });
+              });
+      }
+    </script>
+  </body>
+</html>
