@@ -5,11 +5,12 @@
     <title>QoS por comunas de la Región Metropolitana</title>
     <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
     <script src="js/d3.js"></script>
+    <script src="js/svg.js"></script>
     <link rel="stylesheet" href="./css/mapa.css">
   </head>
   <body>
     <div id="tabs_selector">
-      <button id="wifi" onclick="selectWifi()">WiFI</button>
+      <button id="wifi" onclick="selectWifi()">WiFi</button>
       <button id="mobile" onclick="selectMobile()">Datos Móviles</button>
     </div>
     <div id="tab_content">
@@ -166,7 +167,9 @@
                         .attr("width", `${CONFIG.width}px`)
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
+                          SVG(document.getElementById(selected_comuna)).front();
                           document.getElementById(selected_comuna).style.stroke = CONFIG.line_color_selected;
+                          document.getElementById(selected_comuna).style.strokeWidth = "10px";
                           div.transition()
                                   .duration(200)
                                   .style("opacity", .9);
@@ -177,6 +180,7 @@
                         .on("mouseout", function(e){
                           let selected_comuna = e.target.id;
                           document.getElementById(selected_comuna).style.stroke = CONFIG.line_color_unselected;
+                          document.getElementById(selected_comuna).style.strokeWidth = "1.41398096px";
                           div.transition()
                                   .duration(500)
                                   .style("opacity", 0);
