@@ -1,4 +1,4 @@
-comuna,name,count,avg_rtt,avg_jitter
+comuna,isp,count,avg_rtt,avg_jitter
 Cerrillos,ENTEL CHILE S.A.,194,214874.056701,88085.3505155
 Colina,Manquehuenet,423,103006.189125,42281.964539
 Colina,ENTEL CHILE S.A.,9,113979.222222,75965.1111111
