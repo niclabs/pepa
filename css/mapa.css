@@ -1,0 +1,41 @@
+div {
+    display: inline-block;
+    overflow: visible;
+}
+svg {
+    display: inline-block;
+    position: relative;
+    vertical-align: top;
+    overflow: visible;
+}
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: lightsteelblue;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+th {
+    background-color: #ff8aaf;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
