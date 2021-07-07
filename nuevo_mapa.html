@@ -90,7 +90,7 @@
 
       function initialize(){
         document.getElementById("companies")
-                .innerHTML = `<button id="all" class="isp_button" onClick="particularIsp('all', 'all')">Mostrar todas</button>`
+                .innerHTML = `<button id="all" class="isp_button" onClick="particularIsp('all', 'all');">Mostrar todas</button>`
         if (wifi){
           generateButtons(isp_wifi);
         }
@@ -106,7 +106,7 @@
           data.forEach(function(d){
             console.log(k, d.isp, isp_names[d.isp]);
             document.getElementById("companies").innerHTML +=
-                    `<button id="isp_${k}" class="isp_button" onclick="particularIsp('${d.isp}', 'isp_${k}')">${isp_names[d.isp]} </button>`
+                    `<button id="isp_${k}" class="isp_button" onclick="particularIsp('${d.isp}', 'isp_${k}'); addTableISP('${d.isp}')">${isp_names[d.isp]} </button>`
             k++;
           })
           //console.log(document.getElementById("companies").innerHTML)
@@ -205,7 +205,10 @@
                             return;
                           }
                           console.log("Click", selected_comuna);
-                          addTable(selected_comuna);
+                          if(isp=="all")
+                            addTableComuna(selected_comuna);
+                          //else
+                            //addTableISP(isp)
                         })
                         .selectAll("path")
                         .style("fill", CONFIG.null_color)
@@ -254,7 +257,7 @@
         }
       }
 
-      function addTable(comuna){
+      function addTableComuna(comuna){
         let name_comuna = comuna.replaceAll("_", " ");
         console.debug(`Table of "${name_comuna}"`);
         let is_there = false;
@@ -283,6 +286,38 @@
           console.debug(`No data of "${name_comuna}"`);
         }
       }
+
+       function addTableISP(isp){
+          //console.log("addTableISP", isp)
+        let is_there = false;
+        let table = `<tr><th>Comuna</th><th>RTT</th><th>Jitter</th></tr>`
+        for (let a in whole_data){
+          if (whole_data[a].isp === isp){
+            if (! is_there){
+              is_there = true;
+            }
+            console.debug(whole_data[a]);
+            table += `<tr><td>${[whole_data[a].comuna.replaceAll("_", " ")]}</td>`
+            table += `<td>${(+whole_data[a].avg_rtt).toFixed(2)}</td>`
+            table += `<td>${(+whole_data[a].avg_jitter).toFixed(2)}</td></tr>`
+          }
+        }
+        if (is_there) {
+          document.getElementById("table_name").innerHTML = isp_names[isp];
+          document.getElementById("table").style.visibility = "visible";
+          document.getElementById("concrete_table").innerHTML = `<table>${table}</table>`;
+          console.debug(table);
+        } else {
+          document.getElementById("table").style.visibility = "visible";
+          document.getElementById("table_name").innerHTML = isp_names[isp];
+          document.getElementById("concrete_table").innerHTML = "<p>No hay datos</p>"
+          //document.getElementById("concrete_table").style.visibility = "hidden";
+          console.debug(`No data of "${isp_names[isp]}"`);
+        }
+
+
+        }
+
 
       function showScale(color_fun,legend_height){
         let domain = color_fun.domain();
