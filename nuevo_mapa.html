@@ -116,13 +116,16 @@
       function particularIsp(selectedIsp, button_id){
         isp = selectedIsp;
 
+          //clear table
+        document.getElementById("concrete_table").innerHTML =""
+
         //change style to button of selected ISP
         document.getElementById(last_selected_isp).classList.remove("selected_isp")
         last_selected_isp = button_id
         let button_selected = document.getElementById(button_id)
 
         button_selected.classList.add("selected_isp")
-        console.log(button_selected)
+        //console.log(button_selected)
 
         console.debug("ISP selected " + selectedIsp);
         if (wifi) {
@@ -194,15 +197,20 @@
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
+                          //console.log(selected_comuna)
                         })
                         .on("click", function(e){
                           let selected_comuna = e.target.id;
+                          if(selected_comuna=="svg2"){
+                            return;
+                          }
                           console.log("Click", selected_comuna);
                           addTable(selected_comuna);
                         })
                         .selectAll("path")
                         .style("fill", CONFIG.null_color)
-                        .attr("class","comuna");
+                        .attr("class","comuna")
+                        ;
                 svg.node().appendChild(svgMap);
                 d3.csv(dataset_file).then(data =>{
                   whole_data = data;
@@ -268,6 +276,10 @@
           document.getElementById("concrete_table").innerHTML = `<table>${table}</table>`;
           console.debug(table);
         } else {
+          document.getElementById("table").style.visibility = "visible";
+          document.getElementById("table_name").innerHTML = name_comuna;
+          document.getElementById("concrete_table").innerHTML = "<p>No hay datos</p>"
+          //document.getElementById("concrete_table").style.visibility = "hidden";
           console.debug(`No data of "${name_comuna}"`);
         }
       }
