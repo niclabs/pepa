@@ -125,8 +125,11 @@
 
       function getSVG(){
          return  d3.select("#map")
-                 .append("svg")
-                 .attr("id", "svg_map");
+                 //.append("svg")
+                 //.attr("id", "svg_map")
+                 //.attr("height","370px")
+                 //.attr("width","370px")
+                 ;
       }
 
       function selectIsp(isp, dataset){
@@ -176,16 +179,24 @@
         d3.select("#svg_map").remove();
         document.getElementById("table").style.visibility = "hidden";
         let svg = getSVG();
+                //svg.setAttribute("width", "100%");
+                //svg.setAttribute("height", "auto");
         let div = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0);
         d3.xml("./images/Comunas_de_Santiago_(plain).svg")
               .then(xml => {
+                console.log(xml.documentElement)
                 let svgMap = xml.documentElement;
+                console.log(svgMap)
+                console.log(`${CONFIG.height}`)
+                console.log(`${CONFIG.width}`)
+
                 d3.select(svgMap)
                         .style("float", "left")
-                        .attr("height", `${CONFIG.height}px`)
-                        .attr("width", `${CONFIG.width}px`)
+                        .attr("height", "100%")
+                        .attr("width", "auto")
+                        //.attr("viewBox", "0 30 676 800")
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
