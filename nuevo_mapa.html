@@ -123,14 +123,6 @@
         }
       }
 
-      function getSVG(){
-         return  d3.select("#map")
-                 //.append("svg")
-                 //.attr("id", "svg_map")
-                 //.attr("height","370px")
-                 //.attr("width","370px")
-                 ;
-      }
 
       function selectIsp(isp, dataset){
         let temp = {};
@@ -176,27 +168,19 @@
       }
 
       function generateMap(dataset_file){
-        d3.select("#svg_map").remove();
+        d3.select("#svg2").remove();
         document.getElementById("table").style.visibility = "hidden";
-        let svg = getSVG();
-                //svg.setAttribute("width", "100%");
-                //svg.setAttribute("height", "auto");
+        let svg = d3.select("#map");
         let div = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0);
         d3.xml("./images/Comunas_de_Santiago_(plain).svg")
               .then(xml => {
-                console.log(xml.documentElement)
                 let svgMap = xml.documentElement;
-                console.log(svgMap)
-                console.log(`${CONFIG.height}`)
-                console.log(`${CONFIG.width}`)
-
                 d3.select(svgMap)
                         .style("float", "left")
                         .attr("height", "100%")
                         .attr("width", "auto")
-                        //.attr("viewBox", "0 30 676 800")
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
@@ -244,7 +228,8 @@
                     d3.select(document.getElementById(d.comuna.replaceAll(" ", "_")))
                             .style("fill", color(+d.rtt));
                   })
-                  showScale(color);
+                  let scale_height = svgMap.height.animVal.value * 0.8
+                  showScale(color, scale_height);
                 });
               });
       }
@@ -292,7 +277,7 @@
         }
       }
 
-      function showScale(color_fun){
+      function showScale(color_fun,legend_height){
         let domain = color_fun.domain();
         let range = color_fun.range();
         console.debug(domain);
@@ -301,7 +286,7 @@
         let svg_scale = d3.select("#map_scale")
                 .append("svg")
                 .attr("id", "svg_scale");
-        let bin = (CONFIG.height - 2 * CONFIG.legend_width) / range.length;
+        let bin = (legend_height - 2 * CONFIG.legend_width) / range.length;
         console.debug(`Bin size on legend: ${bin}px`)
         let y = 0;
         svg_scale.append("text")
