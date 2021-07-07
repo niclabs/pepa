@@ -54,6 +54,27 @@
         return data;
       });
 
+
+
+      let isp_names = {
+          "ENTEL CHILE S.A.":"Entel",
+          "Manquehuenet":"Gtd",
+          "TELEFONICA CHILE S.A.":"Movistar",
+          "VTR BANDA ANCHA S.A.":"Vtr",
+          "Telmex Servicios Empresariales S.A.":"Telmex",
+          "Pacifico Cable SPA.":"Pacífico",
+          "CLARO CHILE S.A.":"Claro",
+          "Besthost Spa":"Besthost",
+          "SITELCO SPA":"Sitelco",
+          "WOM S.A.":"Wom",
+          "73007":"Virgin",
+          "73009":"Wom",
+          "73001":"Entel",
+          "73003":"Claro",
+          "73002":"Movistar",
+          "73008":"Vtr"
+      }
+
       function selectWifi(){
         wifi = true;
         mobile = false;
@@ -82,12 +103,12 @@
         what.then(data => {
           let k = 0;
           data.forEach(function(d){
-            console.log(k, d.isp);
+            console.log(k, d.isp, isp_names[d.isp]);
             document.getElementById("companies").innerHTML +=
-                    `<button id="isp_${k}" onclick="particularIsp('${d.isp}')">${d.isp}</button>`
+                    `<button id="isp_${k}" onclick="particularIsp('${d.isp}')">${isp_names[d.isp]}</button>`
             k++;
           })
-          console.log(document.getElementById("companies").innerHTML)
+          //console.log(document.getElementById("companies").innerHTML)
         })
       }
 
@@ -245,7 +266,7 @@
               is_there = true;
             }
             console.debug(whole_data[a]);
-            table += `<tr><td>${whole_data[a].isp}</td>`
+            table += `<tr><td>${isp_names[whole_data[a].isp]}</td>`
             table += `<td>${(+whole_data[a].avg_rtt).toFixed(2)}</td>`
             table += `<td>${(+whole_data[a].avg_jitter).toFixed(2)}</td></tr>`
           }
