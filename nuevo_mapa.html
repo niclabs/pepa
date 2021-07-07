@@ -17,7 +17,7 @@
       <div id="company_selector">
         <div id="company_description" style="width: 100%"><h3>Compañías</h3></div>
         <div id="companies">
-          <button id="all" onclick="particularIsp('all')">Mostrar todas</button>
+          <button id="all" onclick="particularIsp('all', 'all')">Mostrar todas</button>
         </div>
       </div>
       <div id="description" style="width: 100%">
@@ -42,6 +42,7 @@
         }
       });
       let whole_data;
+      let last_selected_isp = 'all'
       let wifi = true;
       let mobile = false;
       let isp = "all";
@@ -89,14 +90,14 @@
 
       function initialize(){
         document.getElementById("companies")
-                .innerHTML = `<button id="all" onClick="particularIsp('all')">Mostrar todas</button>`
+                .innerHTML = `<button id="all" class="isp_button" onClick="particularIsp('all', 'all')">Mostrar todas</button>`
         if (wifi){
           generateButtons(isp_wifi);
         }
         if (mobile){
           generateButtons(isp_mobile);
         }
-        particularIsp("all");
+        particularIsp("all", "all");
       }
 
       function generateButtons(what){
@@ -105,15 +106,24 @@
           data.forEach(function(d){
             console.log(k, d.isp, isp_names[d.isp]);
             document.getElementById("companies").innerHTML +=
-                    `<button id="isp_${k}" onclick="particularIsp('${d.isp}')">${isp_names[d.isp]}</button>`
+                    `<button id="isp_${k}" class="isp_button" onclick="particularIsp('${d.isp}', 'isp_${k}')">${isp_names[d.isp]} </button>`
             k++;
           })
           //console.log(document.getElementById("companies").innerHTML)
         })
       }
 
-      function particularIsp(selectedIsp){
+      function particularIsp(selectedIsp, button_id){
         isp = selectedIsp;
+
+        //change style to button of selected ISP
+        document.getElementById(last_selected_isp).classList.remove("selected_isp")
+        last_selected_isp = button_id
+        let button_selected = document.getElementById(button_id)
+
+        button_selected.classList.add("selected_isp")
+        console.log(button_selected)
+
         console.debug("ISP selected " + selectedIsp);
         if (wifi) {
           generateMap(data_wifi);
@@ -184,22 +194,6 @@
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
-                          document.getElementById(selected_comuna).style.stroke = CONFIG.line_color_selected;
-                          document.getElementById(selected_comuna).style.strokeWidth = "10px";
-                          div.transition()
-                                  .duration(200)
-                                  .style("opacity", .9);
-                          div.html(e.target.id.replaceAll("_", " "))
-                                  .style("left", (e.pageX) + "px")
-                                  .style("top", (e.pageY - 28) + "px");
-                        })
-                        .on("mouseout", function(e){
-                          let selected_comuna = e.target.id;
-                          document.getElementById(selected_comuna).style.stroke = CONFIG.line_color_unselected;
-                          document.getElementById(selected_comuna).style.strokeWidth = "1.41398096px";
-                          div.transition()
-                                  .duration(500)
-                                  .style("opacity", 0);
                         })
                         .on("click", function(e){
                           let selected_comuna = e.target.id;
@@ -207,7 +201,8 @@
                           addTable(selected_comuna);
                         })
                         .selectAll("path")
-                        .style("fill", CONFIG.null_color);
+                        .style("fill", CONFIG.null_color)
+                        .attr("class","comuna");
                 svg.node().appendChild(svgMap);
                 d3.csv(dataset_file).then(data =>{
                   whole_data = data;
@@ -290,6 +285,7 @@
         console.debug(`Bin size on legend: ${bin}px`)
         let y = 0;
         svg_scale.append("text")
+                .attr("id","top_value")
                 .attr("x", CONFIG.legend_width + 5)
                 .text(domain[1].toFixed(0));
         for (let a in range) {
@@ -301,6 +297,7 @@
           y += bin;
         }
         svg_scale.append("text")
+                .attr("id","bottom_value")
                 .attr("x", CONFIG.legend_width + 5)
                 .attr("y", y)
                 .text(domain[0].toFixed(0));
