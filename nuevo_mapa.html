@@ -128,6 +128,9 @@
         //console.log(button_selected)
 
         console.debug("ISP selected " + selectedIsp);
+
+        d3.select("#svg2").remove();
+
         if (wifi) {
           generateMap(data_wifi);
         }
@@ -181,12 +184,17 @@
       }
 
       function generateMap(dataset_file){
-        d3.select("#svg2").remove();
+        try{document.getElementById("svg2").remove();}
+        catch(error){
+          console.log(error)
+        }
+        //
         document.getElementById("table").style.visibility = "hidden";
         let svg = d3.select("#map");
         let div = d3.select("body").append("div")
                 .attr("class", "tooltip")
                 .style("opacity", 0);
+        d3.select("#svg2").remove();
         d3.xml("./images/Comunas_de_Santiago_(plain).svg")
               .then(xml => {
                 let svgMap = xml.documentElement;
