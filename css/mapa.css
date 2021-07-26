@@ -1,13 +1,4 @@
-div {
-    display: inline-block;
-    overflow: visible;
-}
-svg {
-    display: inline-block;
-    position: relative;
-    vertical-align: top;
-    overflow: visible;
-}
+
 div.tooltip {
     position: absolute;
     text-align: center;
@@ -23,7 +14,6 @@ div.tooltip {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
-    width: 100%;
 }
 
 td, th {
@@ -40,7 +30,7 @@ tr:nth-child(even) {
     background-color: #dddddd;
 }
 .isp_button{
-  background-color: #999;
+  background-color: #e38cb7;;
   color: white;
   float: left;
   border: none;
@@ -50,12 +40,13 @@ tr:nth-child(even) {
   font-size: 15px;
 }
 .isp_button:hover{
-  background-color: #777;
+  background-color: #d6619c;
 }
 
 .selected_isp{
-        color:darkblue;
-        background-color: #888;
+        color:#633991;
+
+       
 }
 
 .comuna{
