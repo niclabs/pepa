@@ -1,6 +1,6 @@
       // Read config
       let CONFIG = {};
-      $.getJSON('./config.json', function (data){
+      $.getJSON('config.json', function (data){
         for(let datum of Object.entries(data)){
           CONFIG[datum[0]] = datum[1];
         }
@@ -10,12 +10,12 @@
       let wifi = true;
       let mobile = false;
       let isp = "all";
-      let data_wifi = "./res/ResultsQOSWiFi.csv";
-      let data_mobile = "./res/ResultsQOSMobile.csv";
-      let isp_wifi = d3.csv("./res/ISPWiFi.csv").then(data =>{
+      let data_wifi = "res/ResultsQOSWiFi.csv";
+      let data_mobile = "res/ResultsQOSMobile.csv";
+      let isp_wifi = d3.csv("res/ISPWiFi.csv").then(data =>{
         return data;
       });
-      let isp_mobile = d3.csv("./res/ISPMobile.csv").then(data =>{
+      let isp_mobile = d3.csv("res/ISPMobile.csv").then(data =>{
         return data;
       });
 
