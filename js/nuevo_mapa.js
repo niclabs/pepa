@@ -250,12 +250,16 @@
                                   })
                                   ])
                           .range(colorScaleRedo(data.length));
+                  var itemsProcessed = 0;
                   data.forEach(function(d){
                     d3.select(document.getElementById(d.comuna.replaceAll(" ", "_")))
                             .attr("class", "comuna " + color(+d.rtt));
-                  })
-                  let scale_height = svgMap.height.animVal.value * 0.8
-                  showScale(color, scale_height);
+                            itemsProcessed++;
+                            if(itemsProcessed==data.length){
+                            	let scale_height = svgMap.height.animVal.value * 0.8
+                  				showScale(color, scale_height);
+                            }
+                  })                 
                 });
               });
       }
@@ -264,6 +268,7 @@
 
       function colorScaleRedo(k){
         console.debug(`Color scale of ${k} elements`);
+        //return ["scale1", "scale3", "scale5"];
         if (k === 4){
           return ["scale1","scale2", "scale4", "scale5"];
         } else if (k === 3){
@@ -340,6 +345,9 @@
 
 
       function showScale(color_fun,legend_height){
+      	if(legend_height==0){
+      		legend_height=300
+      	}
         let domain = color_fun.domain();
         let range = color_fun.range();
         console.debug(domain);
