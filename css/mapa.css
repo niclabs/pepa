@@ -57,3 +57,14 @@ tr:nth-child(even) {
     stroke: #888888;
     stroke-width:3px;
 }
+
+
+
+.tooltip div {
+    display:none;
+}
+.tooltip:hover div {
+    display:block;
+    position:fixed;
+    overflow:hidden;
+}

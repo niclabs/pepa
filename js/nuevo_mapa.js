@@ -181,9 +181,8 @@
         document.getElementById("table").style.visibility = "hidden";
         let svg = d3.select("#map");
         svg.style("vertical-align","top")   
-        //let div = d3.select("body").append("div")
-        //        .attr("class", "tooltip")
-        //        .style("opacity", 0)
+        
+        let tooltip_comuna = document.getElementById("tooltip_comuna")
              
         
         d3.select("#svg2").remove();
@@ -198,8 +197,10 @@
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
+                          
                           //console.log(selected_comuna)
                         })
+
                         .on("click", function(e){
                           let selected_comuna = e.target.id;
                           if(selected_comuna=="svg2"){
@@ -214,7 +215,29 @@
                         .selectAll("path")
                         .style("fill", CONFIG.null_color)
                         .attr("class","comuna")
-                        ;
+                        .on("mouseenter",function(e){
+                        	tooltip_comuna.innerHTML=e.target.id
+
+
+                        	
+                        	//console.log(document.getElementById(e.target.id))
+                        	//console.log(this.getBBox())
+                        	//console.log(tooltip_comuna.innerHTML)
+                        	//console.log(document.getElementById("svg2").getBBox())
+                        	//console.log(document.getElementById("svg2").getBBox().width)
+                        	//console.log(svgMap.width.animVal.value)
+                        	var size_scale = document.getElementById("svg2").getBBox().width/svgMap.width.animVal.value
+                        	//console.log(size_scale)
+
+                        	var x = e.clientX,
+						        y = e.clientY;
+						    	tooltip_comuna.style.top = (this.getBBox().y)/size_scale+ 'px';
+						    	tooltip_comuna.style.left = (this.getBBox().x)/size_scale+ 'px';
+						    	tooltip_comuna.style.opacity = 100;
+                        })
+                        .on("mouseout",function(e){
+                        	tooltip_comuna.style.opacity = 0;
+                        });
                 svg.node().appendChild(svgMap);
                 d3.csv(dataset_file).then(data =>{
                   whole_data = data;
