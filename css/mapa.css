@@ -32,7 +32,6 @@ tr:nth-child(even) {
 .isp_button{
   background-color: #e38cb7;;
   color: white;
-  float: left;
   border: none;
   outline: none;
   cursor: pointer;
