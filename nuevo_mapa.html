@@ -59,8 +59,12 @@
             <div class="container mb-5">
                 <div class="row pt-4">
                     <div class="col-md-12">
+
+
+
                         <h3 class="mb-3 text-center">Datos Región Metropolitana</h3>
                         <div class="container">
+                            <p class="text-center">Mostrando Datos de Internet en teléfonos móviles por comuna en Región Metropolitana</p>
                             <h4 class="text-center">Seleccione tipo de datos</h4>
                             <div id="tabs_selector" class="row">
                                 <div class="col-md-4"></div>
@@ -71,15 +75,16 @@
                                     <button id="mobile" onclick="selectMobile()" class="btn btn-light">Datos Móviles</button>
                                 </div>
                             </div>
-                            <h4 class="text-center">Seleccione compañía</h4>
+                            <h4 class="text-center pt-4">Seleccione compañía</h4>
                             <div  id="companies"  class="row" style="display:block; margin:auto;width:100%;text-align: center">
                                 <button id="all" onclick="particularIsp('all', 'all')">Mostrar todas
                                 </button>
                             </div>
-                            <div class="row">
-                                <p>Mostrando intensidad de señal por comuna en Región Metropolitana</p>
+                            <div class="row pt-4">
+                                
                             </div>
-                            <div id="chart" class="row" >
+                            <div id="chart" class="row"> 
+                                <div class="col-md-1"></div>
                                 <div id="outer-map" style="display: inline-block;" class="col-md-4">
                                     <div id="map" >
                                     </div>
@@ -88,7 +93,7 @@
                                 </div>
                                 <div id="map_scale" class="col-md-2">
                                 </div>
-                                <div id="table" style="visibility: hidden" class="col-md-6">
+                                <div id="table" style="visibility: hidden" class="col-md-5">
                                     <h4 id="table_name">Comuna</h4>
                                     <p>Intensidad de señal por compañía</p>
                                     <div id="concrete_table">

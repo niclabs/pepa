@@ -1,10 +1,7 @@
-      // Read config
-      let CONFIG = {};
-      $.getJSON('config.json', function (data){
-        for(let datum of Object.entries(data)){
-          CONFIG[datum[0]] = datum[1];
-        }
-      });
+
+
+      let legend_width=20
+
       let whole_data;
       let last_selected_isp = 'all'
       let wifi = true;
@@ -213,8 +210,7 @@
                             //addTableISP(isp)
                         })
                         .selectAll("path")
-                        .style("fill", CONFIG.null_color)
-                        .attr("class","comuna")
+                        .attr("class","comuna noData")
                         .on("mouseenter",function(e){
                         	tooltip_comuna.innerHTML=e.target.id
 
@@ -256,7 +252,7 @@
                           .range(colorScaleRedo(data.length));
                   data.forEach(function(d){
                     d3.select(document.getElementById(d.comuna.replaceAll(" ", "_")))
-                            .style("fill", color(+d.rtt));
+                            .attr("class", "comuna " + color(+d.rtt));
                   })
                   let scale_height = svgMap.height.animVal.value * 0.8
                   showScale(color, scale_height);
@@ -269,15 +265,15 @@
       function colorScaleRedo(k){
         console.debug(`Color scale of ${k} elements`);
         if (k === 4){
-          return [CONFIG.color_scale[0], CONFIG.color_scale[1], CONFIG.color_scale[3], CONFIG.color_scale[4]];
+          return ["scale1","scale2", "scale4", "scale5"];
         } else if (k === 3){
-          return [CONFIG.color_scale[0], CONFIG.color_scale[2], CONFIG.color_scale[4]];
+          return ["scale1", "scale3", "scale5"];
         } else if (k === 2){
-          return [CONFIG.color_scale[0], CONFIG.color_scale[4]];
+          return ["scale1", "scale5"];
         } else if (k === 1){
-          return [CONFIG.color_scale[2]];
+          return ["scale3"];
         } else {
-          return CONFIG.color_scale;
+          return ["scale1","scale2", "scale3", "scale4", "scale5"];
         }
       }
 
@@ -352,35 +348,48 @@
         let svg_scale = d3.select("#map_scale")
                 .append("svg")
                 .attr("id", "svg_scale")
-                .style("height", legend_height+15)
-        let bin = (legend_height - 2 * CONFIG.legend_width) / range.length;
+                .style("height", legend_height+35)
+        let bin = (legend_height - 2 * legend_width) / range.length;
         console.debug(`Bin size on legend: ${bin}px`)
         let y = 15;
         svg_scale.append("text")
-                .attr("id","top_value")
-                .attr("x", CONFIG.legend_width + 5)
+                .attr("x", legend_width)
                 .attr("y", y)
+                .text("RTT")
+                //.style("font-family","Margot")
+                //.style("fill","#633991")
+                .attr("class","svg_title svg_legend")
+        y = y+20;
+
+        svg_scale.append("text")
+                .attr("id","top_value")
+                .attr("x", legend_width + 5)
+                .attr("y", y+10)
+                .attr("class","svg_legend")
+
                 .text(domain[1].toFixed(0));
         for (let a in range) {
           svg_scale.append("rect")
                   .attr("y", y)
-                  .style("width", `${CONFIG.legend_width}px`)
+                  .style("width", `${legend_width}px`)
                   .style("height", `${bin}px`)
-                  .style("fill", range[range.length - a - 1]);
+                  .attr("class",range[range.length - a - 1]);
           y += bin;
         }
         svg_scale.append("text")
                 .attr("id","bottom_value")
-                .attr("x", CONFIG.legend_width + 5)
-                .attr("y", y)
+                .attr("x", legend_width + 5)
+                .attr("y", y-5)
+                .attr("class","svg_legend")
                 .text(domain[0].toFixed(0));
         svg_scale.append("rect")
-                .attr("y", y + CONFIG.legend_width)
-                .style("width", `${CONFIG.legend_width}px`)
-                .style("height", `${CONFIG.legend_width}px`)
-                .style("fill", CONFIG.null_color);
+                .attr("y", y + legend_width)
+                .style("width", `${legend_width}px`)
+                .style("height", `${legend_width}px`)
+                .attr("class","noData");
         svg_scale.append("text")
-                .attr("x", CONFIG.legend_width + 5)
-                .attr("y", y + 1.5 * CONFIG.legend_width + 5)
-                .text("Sin datos");
+                .attr("x", legend_width + 5)
+                .attr("y", y + 1.5 * legend_width + 5)
+                .attr("class","svg_legend")
+                .text("Comunas sin datos");
       }

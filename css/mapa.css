@@ -6,7 +6,7 @@ div.tooltip {
     height: auto;
     padding: 2px;
     font: 12px sans-serif;
-    background: lightsteelblue;
+    background: #EFBDDB;
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
@@ -14,6 +14,7 @@ div.tooltip {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
+    color: #633991;
 }
 
 td, th {
@@ -23,11 +24,11 @@ td, th {
 }
 
 th {
-    background-color: #888;
+    background-color: #F5D5ED;
 }
 
 tr:nth-child(even) {
-    background-color: #dddddd;
+    background-color: #FBEDFF;
 }
 .isp_button{
   background-color: #e38cb7;;
@@ -48,13 +49,42 @@ tr:nth-child(even) {
        
 }
 
+/*scale colors*/
+.noData{
+     fill:#F7F4DD;
+}
+.scale1{
+    fill:#633991;
+}
+.scale2{
+    fill:#8966AD;
+}
+.scale3{
+    fill:#AF93C8;
+}
+.scale4{
+    fill:#D5C0E4;
+}
+.scale5{
+    fill:#FBEDFF;
+}
+
+.svg_title{
+  font-family: Margot, sans-serif;
+}
+.svg_legend{
+  fill:#633991
+  
+}
+
+
 .comuna{
-    stroke: #d38d5f;
+    stroke: #E5E2CB;
     stroke-width:1.41398096px;
 }
 
 .comuna:hover{
-    stroke: #888888;
+    stroke: #D7D2AF;
     stroke-width:3px;
 }
 

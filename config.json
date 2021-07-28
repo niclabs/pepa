@@ -1,13 +1,16 @@
 {
   "legend_width": 20,
-  "color_scale": [
+
+  "null_color": "#F7F4DD",
+  "null_color_darker": "#fdf9d2",
+  "line_color_unselected":"#F7F4DD",
+  "line_color_unselected_darker": "#d38d5f",
+  "line_color_selected": "#d38d5f",
+  "color_scale_blue": [
     "#eff3ff",
     "#bdd7e7",
     "#6baed6",
     "#3182bd",
     "#08519c"
-  ],
-  "null_color": "#fdf9d2",
-  "line_color_unselected": "#d38d5f",
-  "line_color_selected": "#555555"
+  ]
 }
