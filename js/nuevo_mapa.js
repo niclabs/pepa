@@ -85,12 +85,10 @@
         what.then(data => {
           let k = 0;
           data.forEach(function(d){
-            //console.log(k, d.isp, isp_names[d.isp]);
             document.getElementById("companies").innerHTML +=
                     `<button id="isp_${k}" class="isp_button" onclick="particularIsp('${d.isp}', 'isp_${k}'); addTableISP('${d.isp}')">${isp_names[d.isp]} </button>`
             k++;
           })
-          //console.log(document.getElementById("companies").innerHTML)
         })
       }
 
@@ -101,8 +99,6 @@
         document.getElementById("concrete_table").innerHTML =""
 
         //change style to button of selected ISP
-        console.log(last_selected_isp)
-        console.log(button_id)
         try{
         	document.getElementById(last_selected_isp).classList.remove("selected_isp")
         	last_selected_isp = button_id
@@ -118,11 +114,7 @@
         }
         if (mobile) {
           generateMap(data_mobile);
-        }
-
-        //console.debug("ISP selected " + selectedIsp);
-
-        
+        }   
       }
 
 
@@ -170,11 +162,6 @@
       }
 
       function generateMap(dataset_file){
-        //try{document.getElementById("svg2").remove();}
-        //catch(error){
-        //  console.log(error)
-        //}
-        //
         document.getElementById("table").style.visibility = "hidden";
         let svg = d3.select("#map");
         svg.style("vertical-align","top")   
@@ -194,8 +181,6 @@
                         .on("mouseover", function(e){
                           let selected_comuna = e.target.id;
                           SVG(document.getElementById(selected_comuna)).front();
-                          
-                          //console.log(selected_comuna)
                         })
 
                         .on("click", function(e){
@@ -203,7 +188,6 @@
                           if(selected_comuna=="svg2"){
                             return;
                           }
-                          console.log("Click", selected_comuna);
                           if(isp=="all")
                             addTableComuna(selected_comuna);
                           //else
@@ -213,18 +197,7 @@
                         .attr("class","comuna noData")
                         .on("mouseenter",function(e){
                         	tooltip_comuna.innerHTML=e.target.id
-
-
-                        	
-                        	//console.log(document.getElementById(e.target.id))
-                        	//console.log(this.getBBox())
-                        	//console.log(tooltip_comuna.innerHTML)
-                        	//console.log(document.getElementById("svg2").getBBox())
-                        	//console.log(document.getElementById("svg2").getBBox().width)
-                        	//console.log(svgMap.width.animVal.value)
                         	var size_scale = document.getElementById("svg2").getBBox().width/svgMap.width.animVal.value
-                        	//console.log(size_scale)
-
                         	var x = e.clientX,
 						        y = e.clientY;
 						    	tooltip_comuna.style.top = (this.getBBox().y)/size_scale+ 'px';
@@ -313,7 +286,6 @@
       }
 
        function addTableISP(isp){
-          //console.log("addTableISP", isp)
         let is_there = false;
         let table = `<tr><th>Comuna</th><th>RTT</th><th>Jitter</th></tr>`
         for (let a in whole_data){
