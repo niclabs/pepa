@@ -45,6 +45,8 @@ function selectWifi() {
 	mobile_button.classList.remove("btn-dark")
 	mobile_button.classList.add("btn-light")
 
+	document.getElementById("tipo_datos").innerHTML="Mostrando Datos WiFi"
+
 
 	wifi = true;
 	mobile = false;
@@ -57,11 +59,11 @@ function selectMobile() {
 	var wifi_button = document.getElementById("wifi")
 	wifi_button.classList.remove("btn-dark")
 	wifi_button.classList.add("btn-light")
-
 	var mobile_button = document.getElementById("mobile")
 	mobile_button.classList.remove("btn-light")
 	mobile_button.classList.add("btn-dark")
 
+	document.getElementById("tipo_datos").innerHTML="Mostrando Datos Móviles"
 
 	wifi = false;
 	mobile = true;

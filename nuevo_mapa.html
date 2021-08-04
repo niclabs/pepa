@@ -60,7 +60,32 @@
                     <div class="col-md-12">
                         <h2 class="mb-3 text-center">Datos Región Metropolitana</h2>
                         <div class="container">
-                            <p class="text-center">Mostrando Datos de Internet en teléfonos móviles por comuna en Región Metropolitana</p>
+                        
+
+                            <div>
+                                <p>
+                                    Toda la informacion que consumimos a través de Internet se transporta a través de paquetes de datos. a cada uno de estos paquetes se les puede calcular su RTT ( de inglés "Round Trip Time" o "Viaje de ida y vuelta"), que corresponde al tiempo que demora cada uno en ir y volver. En general estos paquetes se envían a intervalos regulares de forma que vayamos consumiendo lo que se nos va enviando y no quedemos con espacios en blanco de contenido. Por ejemplo, si hay un servidor de streaming mandando un segundo de contenido cada segundo, podemos ir viendo el contenido sin quedarnos esperando a que el resto de la información llegue.
+                                </p>
+
+                                <p>
+                                    Pero, a pesar de que en un mundo ideal eso funcionaría bien, en la vida real existen fluctuaciones en las tasas de envío, lo que se conoce como jitter. Las fluctuaciones pueden deberse a varios factores, pero los principales son la congestión de Internet, el cambio de rutas o caminos de Internet, o la limitación de cuota de Internet desde tu ISP (o Proveedor de Servicios de Internet). 
+                                </p>
+
+
+                                <p>
+                                    Cuando queremos conocer si tenemos una buena o mala calidad de internet, lo que buscamos es tener un bajo RTT (o sea que nuestros paquetes se muevan rápido) y un bajo Jitter (que los paquetes se muevan a velocidad similar).
+                                </p>
+
+                                <p>
+                                    A continuación se muestran algunos de los datos recolectados por PePa Ping, correspondientes a la Región Metropolitana. Los datos de PePa Ping fueron recolectados por voluntarios utilizando sus teéfonos móviles, por lo que puedes elegir ver entre los datos utilizando datos móviles o utilizando la señal wifi disponible.
+                                </p>
+
+<!--Además, puedes seleccionar alguna compañía en particular o alguna comuna en particular y ver como varían los datos en ellas.-->
+
+                                <p>
+                                    Recuerda que estos datos no corresponden necesariamente a la realidad de todos los usuarios, ya que son sólo una pequeña muestra promediada de los datos recolectados por nuestros usuarios en el periodo de Enero a Marzo de 2021.
+                                </p>
+                            </div>
                             <h4 class="text-center">Seleccione tipo de datos</h4>
                             <div id="tabs_selector" class="row">
                                 <div class="col-md-12 d-flex justify-content-center">
@@ -70,7 +95,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-1"></div>
-                                <h3 class="pt-4" style="font-size:28px">Mostrando datos wifi</h3>
+                                <h3 id="tipo_datos" class="pt-4" style="font-size:28px">Mostrando datos WiFi </h3><h3 class="pt-4" style="font-size:28px"> </h3>
                             </div>
                         </div>
                         <div class="row">
