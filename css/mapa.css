@@ -10,6 +10,7 @@ div.tooltip {
     border: 0px;
     border-radius: 8px;
     pointer-events: none;
+    padding:5px;
 }
 table {
     font-family: arial, sans-serif;
@@ -95,11 +96,11 @@ tr:nth-child(even) {
 
 
 
-.tooltip div {
-    display:none;
-}
-.tooltip:hover div {
-    display:block;
-    position:fixed;
-    overflow:hidden;
-}
+
+.tableFixHead          { overflow: auto; height: inherit; }
+.tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
+
+/* Just common table stuff. Really. */
+table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
