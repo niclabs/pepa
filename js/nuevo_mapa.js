@@ -184,11 +184,18 @@ function generateMap(dataset_file) {
 					SVG(document.getElementById(selected_comuna)).front();
 				})
 				.on("click", function(e) {
+
 					let selected_comuna = e.target.id;
+
 					if (selected_comuna == "svg2") {
 						return;
 					}
+					if (document.getElementById(selected_comuna).classList.contains("noData")){
+						return;
+					}
+					
 					if (isp == "all"){
+						
 						addTableComuna(selected_comuna);
 						
 					}

@@ -107,6 +107,9 @@ button{
     stroke-width:5px;
     cursor: pointer;
 }
+.comuna.noData{
+  cursor: default;
+}
 
 
 
