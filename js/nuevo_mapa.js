@@ -190,12 +190,7 @@ function generateMap(dataset_file) {
 					}
 					if (isp == "all"){
 						addTableComuna(selected_comuna);
-						console.log(document.getElementById("svg2").width.animVal.value)
-						var map_height = (document.getElementById("svg2").width.animVal.value)
-						console.log(map_height)
-						var table_height = map_height-60;
-						console.log(table_height)
-						document.getElementById("concrete_table").style.height = table_height+"px"
+						
 					}
 
 					//else
