@@ -365,7 +365,9 @@ function showScale(color_fun, legend_height) {
 	let svg_scale = d3.select("#map_scale")
 		.append("svg")
 		.attr("id", "svg_scale")
-		.style("height", legend_height + 35)
+		.style("width","auto")
+		.attr("viewBox","0 0 100 290")
+		//.style("height", legend_height + 35)
 	let bin = (legend_height - 2 * legend_width) / range.length;
 	console.debug(`Bin size on legend: ${bin}px`)
 	let y = 15;
