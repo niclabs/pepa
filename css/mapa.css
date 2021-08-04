@@ -43,6 +43,7 @@ tr:nth-child(even) {
 }
 .isp_button:hover{
   background-color: #d6619c;
+  border-color: #ffffff;
 }
 
 .selected_isp{
@@ -51,6 +52,19 @@ tr:nth-child(even) {
         font-weight: 500;
 
        
+}
+
+
+button:focus {
+    
+    outline: none;
+}
+
+button{
+  border-color: #ffffff;
+}
+.btn-dark{
+  border-color: #ffffff;
 }
 
 /*scale colors*/
