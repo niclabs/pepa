@@ -62,28 +62,45 @@
 
 
 
-                        <h3 class="mb-3 text-center">Datos Región Metropolitana</h3>
+                        <h2 class="mb-3 text-center">Datos Región Metropolitana</h2>
                         <div class="container">
                             <p class="text-center">Mostrando Datos de Internet en teléfonos móviles por comuna en Región Metropolitana</p>
                             <h4 class="text-center">Seleccione tipo de datos</h4>
                             <div id="tabs_selector" class="row">
                                 <div class="col-md-4"></div>
                                 <div class="col-md-2">
-                                    <button id="wifi" onclick="selectWifi()" class="btn btn-dark">WiFi</button>
+                                    <button id="wifi" onclick="selectWifi()" class="btn btn-dark btn-block">WiFi</button>
                                 </div>
                                 <div class="col-md-2">
-                                    <button id="mobile" onclick="selectMobile()" class="btn btn-light">Datos Móviles</button>
+                                    <button id="mobile" onclick="selectMobile()" class="btn btn-light btn-block">Datos Móviles</button>
                                 </div>
                             </div>
-                            <h4 class="text-center pt-4">Seleccione compañía</h4>
-                            <div  id="companies"  class="row" style="display:block; margin:auto;width:100%;text-align: center">
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                            <h3 class="pt-4" style="font-size:28px">Mostrando datos wifi</h3>
+                        </div>
+                    </div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-11">
+                                    <h4 class="pt-4">Seleccione compañía</h4>
+                                </div>
+                             </div>
+                             <div class="row">
+                                <div class="col-md-1"></div>
+                            <div  id="companies"  class="col-md-10" style="display:block; margin:auto;width:100%;">
                                 <button id="all" onclick="particularIsp('all', 'all')">Mostrar todas
                                 </button>
                             </div>
+                        </div>
                             <div class="row pt-4">
-                                
+                                <div class="col-md-1"></div>
+                                <div class="col-md-11">
+                                    <h4 >Selecciona una Comuna</h4>
+                                </div>
                             </div>
                             <div id="chart" class="row"> 
+
                                 <div class="col-md-1"></div>
                                 <div id="outer-map" style="display: inline-block;" class="col-md-4">
                                     <div id="map" >

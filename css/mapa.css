@@ -38,6 +38,7 @@ tr:nth-child(even) {
   cursor: pointer;
   padding: 14px 16px;
   font-size: 15px;
+  font-weight: 300;
 }
 .isp_button:hover{
   background-color: #d6619c;
@@ -45,6 +46,8 @@ tr:nth-child(even) {
 
 .selected_isp{
         color:#633991;
+        background-color: #d6619c;
+        font-weight: 500;
 
        
 }
@@ -81,11 +84,13 @@ tr:nth-child(even) {
 .comuna{
     stroke: #E5E2CB;
     stroke-width:1.41398096px;
+    
 }
 
 .comuna:hover{
     stroke: #D7D2AF;
-    stroke-width:3px;
+    stroke-width:5px;
+    cursor: pointer;
 }
 
 

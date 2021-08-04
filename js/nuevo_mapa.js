@@ -241,7 +241,7 @@
 
       function colorScaleRedo(k){
         console.debug(`Color scale of ${k} elements`);
-        //return ["scale1", "scale3", "scale5"];
+        return ["scale1", "scale3", "scale5"];
         if (k === 4){
           return ["scale1","scale2", "scale4", "scale5"];
         } else if (k === 3){
