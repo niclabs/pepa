@@ -119,6 +119,12 @@ function particularIsp(selectedIsp, button_id) {
 
 
 function selectIsp(isp, dataset) {
+	if(isp=="all"){
+		document.getElementById("seleccion_comuna").style.visibility="visible";
+	}else{
+		document.getElementById("seleccion_comuna").style.visibility="hidden";
+	}
+
 	let temp = {};
 	let comunas = [];
 	if (isp === "all") {
@@ -182,6 +188,9 @@ function generateMap(dataset_file) {
 				.on("mouseover", function(e) {
 					let selected_comuna = e.target.id;
 					SVG(document.getElementById(selected_comuna)).front();
+					if(last_selected_isp!="all"){
+						document.getElementById(selected_comuna).style.cursor="default";
+					}
 				})
 				.on("click", function(e) {
 
@@ -195,7 +204,7 @@ function generateMap(dataset_file) {
 					}
 					
 					if (isp == "all"){
-						
+
 						addTableComuna(selected_comuna);
 						
 					}
@@ -251,11 +260,11 @@ function generateMap(dataset_file) {
 
 			//	console.log(svgMap)
 			//console.log(document.getElementById("svg2"))
-			console.log(document.getElementById("svg2").width.animVal.value)
+			//console.log(document.getElementById("svg2").width.animVal.value)
 			var map_height = (document.getElementById("svg2").width.animVal.value)
-			console.log(map_height)
+			//console.log(map_height)
 			var table_height = map_height-60;
-			console.log(table_height)
+			//console.log(table_height)
 			document.getElementById("concrete_table").style.height = table_height+"px"
 			
 			});
@@ -268,7 +277,7 @@ function generateMap(dataset_file) {
 initialize();
 
 function colorScaleRedo(k) {
-	console.debug(`Color scale of ${k} elements`);
+	//console.debug(`Color scale of ${k} elements`);
 	return ["scale1", "scale3", "scale5"];
 	if (k === 4) {
 		return ["scale1", "scale2", "scale4", "scale5"];
@@ -399,5 +408,5 @@ function showScale(color_fun, legend_height) {
 		.attr("x", legend_width + 5)
 		.attr("y", y + 1.5 * legend_width + 5)
 		.attr("class", "svg_legend")
-		.text("Comunas sin datos");
+		.text("Sin datos");
 }

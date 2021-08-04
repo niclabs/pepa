@@ -31,6 +31,9 @@ th {
 tr:nth-child(even) {
     background-color: #FBEDFF;
 }
+tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
 .isp_button{
   background-color: #e38cb7;;
   color: white;
@@ -99,13 +102,13 @@ button{
 .comuna{
     stroke: #E5E2CB;
     stroke-width:1.41398096px;
-    
+    cursor: pointer;
 }
 
 .comuna:hover{
     stroke: #D7D2AF;
     stroke-width:5px;
-    cursor: pointer;
+    
 }
 .comuna.noData{
   cursor: default;
