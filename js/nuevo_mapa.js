@@ -176,6 +176,8 @@ function generateMap(dataset_file) {
 
 	let tooltip_comuna = document.getElementById("tooltip_comuna")
 
+	
+
 
 	d3.select("#svg2").remove();
 	d3.xml("./images/Comunas_de_Santiago_(plain).svg")
@@ -276,29 +278,77 @@ function generateMap(dataset_file) {
 
 }
 
+function reportWindowSize(){
+	var map_height = (document.getElementById("svg2").width.animVal.value)
+	//console.log(map_height)
+	var table_height = map_height-60;
+	console.log(table_height)
+	document.getElementById("concrete_table").style.height = table_height+"px"
+}
+window.addEventListener('resize', reportWindowSize);
+
 initialize();
 
 function colorScaleRedo(k) {
 	//console.debug(`Color scale of ${k} elements`);
-	return ["scale1", "scale3", "scale5"];
-	if (k === 4) {
-		return ["scale1", "scale2", "scale4", "scale5"];
-	} else if (k === 3) {
-		return ["scale1", "scale3", "scale5"];
-	} else if (k === 2) {
+	//return ["scale1", "scale3", "scale5"];
+	//if (k === 4) {
+	//	return ["scale1", "scale2", "scale4", "scale5"];
+	//} else if (k === 3) {
+	//	return ["scale1", "scale3", "scale5"];
+	//} else 
+	if (k === 2) {
 		return ["scale1", "scale5"];
 	} else if (k === 1) {
 		return ["scale3"];
 	} else {
-		return ["scale1", "scale2", "scale3", "scale4", "scale5"];
+		//return ["scale1", "scale2", "scale3", "scale4", "scale5"];
+		return ["scale1", "scale3", "scale5"];
+
 	}
+}
+
+function showTooltip(e,name){
+	let tooltip_tabla = document.getElementById("tooltip_tabla")
+	var x = e.clientX,
+		y = e.clientY;
+	//console.log(x)
+	//console.log(y)
+	if(name=="isp"){
+		
+		tooltip_tabla.innerHTML = "Proveedor de Servicios de Internet"
+	}
+	if(name=="rtt"){
+		
+		tooltip_tabla.innerHTML = "Round Trip Time: es el tiempo promedio de demora de ida y vuelta de los paquetes; menor es mejor."
+	}
+	if(name=="jitter"){
+		
+		tooltip_tabla.innerHTML = "Jitter corresponde a la fluctuacion en las tasas de envío de los paquetes; menor es mejor."
+	}
+	//console.log(tooltip_tabla);
+	//console.log(tooltip_tabla.style)
+	tooltip_tabla.style.top=y-60+"px"
+	tooltip_tabla.style.center=x-100+"px"
+	tooltip_tabla.style.opacity = 100;
+}
+
+function hideTooltip(){
+	let tooltip_tabla = document.getElementById("tooltip_tabla")
+	tooltip_tabla.style.opacity = 0;
+
 }
 
 function addTableComuna(comuna) {
 	let name_comuna = comuna.replaceAll("_", " ");
 	console.debug(`Table of "${name_comuna}"`);
 	let is_there = false;
-	let table = `<thead><tr><th>ISP</th><th>RTT</th><th>Jitter</th></tr></thead>`
+	let table = `<thead>
+	<tr>
+		<th style="width:50%">ISP <i class="bi-question-circle" style="color: black;" onmouseover = showTooltip(event,"isp"); onmouseout = hideTooltip()></i></th>
+		<th style="width:25%">RTT <i class="bi-question-circle" style="color: black;" onmouseover = showTooltip(event,"rtt"); onmouseout = hideTooltip()></i></th>
+		<th style="width:25%">Jitter <i class="bi-question-circle" style="color: black"; onmouseover = showTooltip(event,"jitter"); onmouseout = hideTooltip()></i></th>
+	</tr></thead>`
 	for (let a in whole_data) {
 		if (whole_data[a].comuna === name_comuna) {
 			if (!is_there) {
@@ -326,7 +376,12 @@ function addTableComuna(comuna) {
 
 function addTableISP(isp) {
 	let is_there = false;
-	let table = `<thead><tr><th>Comuna</th><th>RTT</th><th>Jitter</th></tr></thead>`
+	let table = `<thead>
+	<tr>
+		<th style="width:50%">Comuna</th>
+		<th style="width:25%">RTT <i class="bi-question-circle" style="color: black;" onmouseover = showTooltip(event,"rtt"); onmouseout = hideTooltip()></i></th>
+		<th style="width:25%">Jitter <i class="bi-question-circle" style="color: black"; onmouseover = showTooltip(event,"jitter"); onmouseout = hideTooltip()></i></th>
+	</tr></thead>`
 	for (let a in whole_data) {
 		if (whole_data[a].isp === isp) {
 			if (!is_there) {
@@ -357,8 +412,9 @@ function addTableISP(isp) {
 
 function showScale(color_fun, legend_height) {
 	if (legend_height == 0) {
-		legend_height = 300
+		legend_height = 600
 	}
+	legend_height = 400
 	let domain = color_fun.domain();
 	let range = color_fun.range();
 	console.debug(domain);
@@ -368,7 +424,7 @@ function showScale(color_fun, legend_height) {
 		.append("svg")
 		.attr("id", "svg_scale")
 		.style("width","auto")
-		.attr("viewBox","0 0 100 290")
+		.attr("viewBox","0 0 110 450")
 		//.style("height", legend_height + 35)
 	let bin = (legend_height - 2 * legend_width) / range.length;
 	console.debug(`Bin size on legend: ${bin}px`)

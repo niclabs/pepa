@@ -1,5 +1,18 @@
+div.tooltip_tab {
+    position: fixed;
+    text-align: center;
+    width: auto;
+    height: auto;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #EFBDDB;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+    padding:5px;
+}
 
-div.tooltip {
+div.tooltip_map {
     position: absolute;
     text-align: center;
     width: auto;
@@ -15,6 +28,7 @@ div.tooltip {
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
+    width: 100%;
     color: #633991;
 }
 
@@ -25,15 +39,18 @@ td, th {
 }
 
 th {
-    background-color: #F5D5ED;
+    background-color: #DDD;
+    text-align: center;
 }
 
 tr:nth-child(even) {
-    background-color: #FBEDFF;
+    background-color: #EEE;
 }
 tr:nth-child(odd) {
     background-color: #FFFFFF;
 }
+
+
 .isp_button{
   background-color: #e38cb7;;
   color: white;
@@ -120,10 +137,7 @@ button{
 .tableFixHead          { overflow: auto; height: inherit; }
 .tableFixHead thead th { position: sticky; top: 0; z-index: 1; }
 
-/* Just common table stuff. Really. */
-table  { border-collapse: collapse; width: 100%; }
-th, td { padding: 8px 16px; }
-th     { background:#eee; }
+
 
 p{
    text-align: justify;
